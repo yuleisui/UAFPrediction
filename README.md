@@ -3,7 +3,7 @@ UAFPrediction is a tool which uses the SVM machine learning model to determine t
 
 There are numerous C/C++ static bug detectors which aim to locate the existance of use-after-free bugs, though not all tools are perfect and there are some limitations when utilising static analysis such as filtering false positives 
 
-##Installation
+## Installation
 This tool requires 
 1. python3 installed and the python modules Scikit-learn and its associated dependencies
 2. Cbmc tool
@@ -11,7 +11,7 @@ This tool requires
 4. Stc tool 
 5. Clang 3.8
 
-##Usage
+## Usage
 1. Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and stc is installed on your system. 
     *If you have followed the default instructions on where coccinelle is installed, then it may not be necessary to change the cocci_loc string.
     *If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.

@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
-import subprocess
-import sys
-import os
+import subprocess, sys, os, errno, shutil
+
+#TODO before execution
+# Need to change where coccinelle is executed from
+cocci_loc = "spatch"
+# Need to change where the location of the uaf.cocci patch file
+uaf_cocci_loc = "/home/antheny/UAFPrediction/uaf.cocci"
 
 def cocci(args):
+    if not shutil.which(cocci_loc):
+        raise Exception("Coccinelle / Spatch command not found, change cocci_loc string in coccinelle.py")
+    if not os.path.exists(uaf_cocci_loc):
+        raise FileNotFoundError(
+                    errno.ENOENT, os.strerror(errno.ENOENT), uaf_cocci_loc )
     cocci_result = [0]
     if len(args) >= 2:
-        cocci_args=["spatch", "--sp-file", "/home/antheny/UAFPrediction/uaf.cocci"]
+        cocci_args=[cocci_loc, "--sp-file", uaf_cocci_loc]
         if os.path.isdir(args[1]):
             cocci_args.append("-dir")
             cocci_args.append(args[1])

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import sys,re, errno, os
+
 from sklearn import svm
 from juliet_test_data import data
 from juliet_test_data import target
+
 from coccinelle import cocci
 from cbmc import cbmc
 from stc import stc
@@ -31,11 +33,15 @@ def run_programs(args):
     svm_prediction = predict(result)
     if svm_prediction[0] == 1:
         print("Coccinelle LOG")
+        print(cocci_err)
         print(cocci_out)
         print("CBMC LOG")
+        print(cbmc_err)
         print(cbmc_out)
         print("STC LOG")
         printArray(stc_report)
+    else:
+        print("No Use-After-Free bugs have been predicted")
 
 
 def predict(result):
