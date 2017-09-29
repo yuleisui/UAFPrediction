@@ -47,11 +47,8 @@ def run_programs(args):
 def predict(result):
     clf = svm.SVC(gamma=0.001, C=100)
 
-    data_ = data()
-    target_ = target()
-
-    X = data_
-    y = target_
+    X = data()
+    y = target()
 
     clf.fit(X,y)
 
