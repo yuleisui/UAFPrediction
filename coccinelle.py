@@ -40,4 +40,6 @@ def cocci(args):
     return cocci_result, stdout, stderr
 
 if __name__ == "__main__":
-    cocci(sys.argv)
+    res, stdout, stderr = cocci(sys.argv)
+    print(stderr)
+    print(stdout)

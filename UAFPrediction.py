@@ -31,6 +31,8 @@ def run_programs(args):
         result.append(a)
 
     svm_prediction = predict(result)
+    if svm_prediction[0] == -1:
+        print("did not change value")
     if svm_prediction[0] == 1:
         print("Coccinelle LOG")
         print(cocci_err)

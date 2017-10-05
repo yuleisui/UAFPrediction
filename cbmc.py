@@ -42,6 +42,8 @@ def cbmc(args):
     return(cbmc_result, cbmc_stdout, cbmc_stderr)
 
 if __name__ == "__main__":
-    cbmc(sys.argv)
+    res, out, err = cbmc(sys.argv)
+    print(err)
+    print(out)
 
 
