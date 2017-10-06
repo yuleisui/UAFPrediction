@@ -40,7 +40,7 @@ def findBC(args):
 def c_compile(args, filename):
     # Compile the files to get .bc file
     clang_args = [clang_loc, "-g", "-flto", "-o", filename+"/"+filename]
-    for i in range(1,len(args)):
+    for i in range(0,len(args)):
         clang_args.append(args[i])
     p = subprocess.Popen(clang_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     parse = p.communicate()
@@ -50,8 +50,8 @@ def c_compile(args, filename):
     #print("stdout:\n" + parse[0].decode("utf-8"))
 
 def run_stc(cur_dir, stc_result):
-
     bcFiles_list = findBC(cur_dir)
+
     for i in bcFiles_list:
         # Use stc on the .bc files generated
         stc_args = [stc_loc, "-uaf" , "-flowbg=300000", "-cxtbg=300000", "-pathbg=300000", "-stccxt=100", "-singleVFG", "-dbg=false", "-mb", i]
@@ -64,9 +64,10 @@ def run_stc(cur_dir, stc_result):
 
         #output = [s.strip() for s in parse2[0].splitlines()]
 
-        # Extract filename from .bc source file
+        # Extract filename from .bc source file to find report file
         try:
             filename = re.search('(.+?)\.bc$', i).group(1)
+            print(filename)
         except AttributeError:
             filename = ''
             print("Filename not valid")
@@ -74,6 +75,7 @@ def run_stc(cur_dir, stc_result):
         report = [s.strip() for s in open(filename+".report")]
         #printReport(report)
         no_warning_check = re.search('^No warning issued',report[0])
+
         if no_warning_check:
             stc_result[0] = 0
         else:
@@ -85,7 +87,6 @@ def run_stc(cur_dir, stc_result):
 
 
 def stc(args):
-
     stc_result = [-1]
 
     if len(args) >= 2:
@@ -101,7 +102,6 @@ def stc(args):
         # Create a directory containing the compiled and stc files
         try:
             cur_dir = os.getcwd()
-            print("#### " + cur_dir+"/"+filename + " ###")
             os.makedirs(cur_dir+"/"+filename)
         except OSError as e:
             if e.errno != errno.EEXIST:

@@ -18,16 +18,22 @@ def run_programs(args):
 
     cocci_res, cocci_out, cocci_err = cocci(args)
     for a in cocci_res:
+        if a == -1:
+            raise("cocci result returned a -1 error")
         result.append(a)
 
     cbmc_res, cbmc_out, cbmc_err = cbmc(args)
     for a in cbmc_res:
+        if a == -1:
+            raise("cbmc returned a -1 error")
         result.append(a)
     #print(cbmc_stdout)
     #print(cbmc_stderr)
 
     stc_res, stc_report = stc(args)
     for a in stc_res:
+        if a == -1:
+            raise("stc_result returned a -1 error")
         result.append(a)
 
     svm_prediction = predict(result)
@@ -68,6 +74,6 @@ if __name__ == "__main__":
     #except AttributeError:
     #    print("Filename not valid")
 
-    run_programs(sys.argv)
+    run_programs(sys.argv[1:])
 
 
