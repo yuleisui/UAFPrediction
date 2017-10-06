@@ -37,9 +37,10 @@ def findBC(args):
     return bc_list
 
 
-def c_compile(args, filename):
+def c_compile(args, filename, cur_dir):
     # Compile the files to get .bc file
-    clang_args = [clang_loc, "-g", "-flto", "-o", filename+"/"+filename]
+    #print("compiling... f: " + filename + " c: " + cur_dir)
+    clang_args = [clang_loc, "-g", "-flto", "-o", cur_dir+"/"+filename]
     for i in range(0,len(args)):
         clang_args.append(args[i])
     p = subprocess.Popen(clang_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -49,8 +50,9 @@ def c_compile(args, filename):
     #print("stderr:\n" + parse[1].decode("utf-8"))
     #print("stdout:\n" + parse[0].decode("utf-8"))
 
-def run_stc(cur_dir, stc_result):
+def run_stc_dir(cur_dir, stc_result):
     bcFiles_list = findBC(cur_dir)
+    report_list = []
 
     for i in bcFiles_list:
         # Use stc on the .bc files generated
@@ -73,6 +75,40 @@ def run_stc(cur_dir, stc_result):
             print("Filename not valid")
 
         report = [s.strip() for s in open(filename+".report")]
+        report_list.append(report)
+        #printReport(report)
+        no_warning_check = re.search('^No warning issued',report[0])
+
+        if no_warning_check:
+            stc_result.append([0])
+        else:
+            stc_result.append([1])
+
+
+def run_stc(cur_dir, stc_result):
+    bcFiles_list = findBC(cur_dir)
+
+    for i in bcFiles_list:
+        # Use stc on the .bc files generated
+        stc_args = [stc_loc, "-uaf" , "-flowbg=300000", "-cxtbg=300000", "-pathbg=300000", "-stccxt=100", "-singleVFG", "-dbg=false", "-mb", i]
+        c = subprocess.Popen(stc_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        parse2 = c.communicate()
+        if c.returncode:
+            raise Exception(parse2[1])
+        #print("stderr:\n" + parse2[1].decode("utf-8"))
+        #print("stdout: \n" + parse2[0].decode("utf-8"))
+
+        #output = [s.strip() for s in parse2[0].splitlines()]
+
+        # Extract filename from .bc source file to find report file
+        try:
+            filename = re.search('(.+?)\.bc$', i).group(1)
+            #print(filename)
+        except AttributeError:
+            filename = ''
+            print("Filename not valid")
+
+        report = [s.strip() for s in open(filename+".report")]
         #printReport(report)
         no_warning_check = re.search('^No warning issued',report[0])
 
@@ -80,8 +116,7 @@ def run_stc(cur_dir, stc_result):
             stc_result[0] = 0
         else:
             stc_result[0] = 1
-
-    return(report)
+    return report
 
 
 
@@ -89,39 +124,38 @@ def run_stc(cur_dir, stc_result):
 def stc(args):
     stc_result = [-1]
 
-    if len(args) >= 2:
+    filename = ''
+
+    # Extract filename from .c source file
+    try:
+        filename = re.search('(.+?)\.c$', args[0]).group(1)
+    except AttributeError:
         filename = ''
+        print("Filename not valid")
 
-        # Extract filename from .c source file
-        try:
-            filename = re.search('(.+?)\.c$', args[1]).group(1)
-        except AttributeError:
-            filename = ''
-            print("Filename not valid")
+    # Create a directory containing the compiled and stc files
+    try:
+        cur_dir = os.getcwd()
+        os.makedirs(cur_dir+"/"+filename)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
 
-        # Create a directory containing the compiled and stc files
-        try:
-            cur_dir = os.getcwd()
-            os.makedirs(cur_dir+"/"+filename)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise
-
-        if not shutil.which(clang_loc):
-            shutil.rmtree(cur_dir+"/"+filename)
-            raise Exception("Clang does not exist, change clang string in stc.py")
-        c_compile(args, filename)
-
-        if not shutil.which(stc_loc):
-            shutil.rmtree(cur_dir+"/"+filename)
-            raise Exception("STC does not exist, change stc string in stc.py")
-        report = run_stc(cur_dir+"/"+filename,stc_result)
-
+    if not shutil.which(clang_loc):
         shutil.rmtree(cur_dir+"/"+filename)
+        raise Exception("Clang does not exist, change clang string in stc.py")
+    c_compile(args, filename, cur_dir+"/"+filename)
+
+    if not shutil.which(stc_loc):
+        shutil.rmtree(cur_dir+"/"+filename)
+        raise Exception("STC does not exist, change stc string in stc.py")
+    report = run_stc(cur_dir+"/"+filename,stc_result)
+
+    shutil.rmtree(cur_dir+"/"+filename)
     return stc_result, report
 
 if __name__ == "__main__":
-    stc_res, rep = stc(sys.argv)
+    stc_res, rep = stc(sys.argv[1:])
     printReport(rep)
 
 
