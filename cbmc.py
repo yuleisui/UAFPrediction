@@ -11,7 +11,7 @@ def cbmc_dir(args):
 
     cbmc_result = [0]
     #make sure cbmc is linked
-    cbmc_args=[cbmc_loc, "--memory-leak-check", "--pointer-overflow-check", "--pointer-check", "--bounds-check"]
+    cbmc_args=[cbmc_loc, "--memory-leak-check", "--pointer-overflow-check", "--pointer-check", "--bounds-check", "--unwind", "100"]
 
     for i in range(0,len(args)):
         temp_cbmc = list(cbmc_args)
@@ -19,10 +19,10 @@ def cbmc_dir(args):
         print("Running: " + " ".join(temp_cbmc))
         p = subprocess.Popen(temp_cbmc, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         parse = p.communicate()
-        print("stderr:\n" + parse[1].decode("utf-8"))
+        print("#####\nstderr:\n" + parse[1].decode("utf-8"))
         print("stdout: \n" + parse[0].decode("utf-8"))
-        cbmc_stdout = parse[0].decode("utf-8")
-        cbmc_stderr = parse[1].decode("utf-8")
+        #cbmc_stdout = parse[0].decode("utf-8")
+        #cbmc_stderr = parse[1].decode("utf-8")
 
 
 def cbmc(args):
@@ -31,7 +31,7 @@ def cbmc(args):
 
     cbmc_result = [0]
     #make sure cbmc is linked
-    cbmc_args=[cbmc_loc, "--memory-leak-check", "--pointer-overflow-check", "--pointer-check", "--bounds-check"]
+    cbmc_args=[cbmc_loc, "--memory-leak-check", "--pointer-overflow-check", "--pointer-check", "--bounds-check", "--unwind", "100"]
 
     cbmc_args = cbmc_args + args
     #print(" ".join(cbmc_args))
