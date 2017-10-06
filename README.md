@@ -17,8 +17,11 @@ This tool requires
     * If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
     * If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
     * It may be required to change the stc_loc string, as the binary file may be in a different location.
-2. Invoke the svm.py program using python3 from the base folder of where C source files are located.
-    * E.g. python3 svm.py file1.c file2.c …
+2. Invoke the UAFPrediction.py program using python3 from the base folder of where C source files are located.
+    * E.g. python3 /path/to/UAFPrediction.py file1.c file2.c …
 3. After execution the tool will report if a Use-After-Free bug has been predicted. If a bug has been predicted, then the output of the tools will be report. Otherwise the message “No Use-After-Free bugs have been predicted” message will appear.
 
-
+## Test folder
+Under the test folder, there are some examples to showcase the program in action.
+* To use the CWE416_Use_After_Free__return_freed_ptr_18_bad.c test case, it must be called with io.c.
+    * e.g. python3 /path/to/UAFPrediction.py CWE416_Use_After_Free__return_freed_ptr_18_bad.c io.c
