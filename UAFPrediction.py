@@ -5,9 +5,9 @@ from sklearn import svm
 from juliet_test_data import data
 from juliet_test_data import target
 
-from coccinelle import cocci
-from cbmc import cbmc
-from stc import stc
+from coccinelle import *
+from cbmc import *
+from stc import *
 
 def printArray(report):
     for i in report:
