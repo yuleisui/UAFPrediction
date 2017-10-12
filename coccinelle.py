@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import subprocess, sys, os, errno, shutil
 
-#TODO before execution
+# TODO before execution
 # Need to change where coccinelle is executed from
 cocci_loc = "spatch"
 # Need to change where the location of the uaf.cocci patch file

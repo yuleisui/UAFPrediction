@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import subprocess, sys, re, shutil
 
-#TODO
+# TODO
 # Need to change for where cbmc is to be executed from
 cbmc_loc = "cbmc"
 

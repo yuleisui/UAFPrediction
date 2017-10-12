@@ -1,7 +1,9 @@
 # UAFPrediction
 UAFPrediction is a tool which uses the SVM machine learning model to determine the likelihood of a use-after-free bug within  C/C++ source files. 
 
-There are numerous C/C++ static bug detectors which aim to locate the existance of use-after-free bugs, though not all tools are perfect and there are some limitations when utilising static analysis such as filtering false positives 
+There are numerous C/C++ static bug detectors which aim to locate the existance of use-after-free bugs, though not all tools are perfect and there are some limitations when utilising static analysis such as filtering false positives
+
+[![IMAGE ALT TEXT](https://www.dropbox.com/s/shqbdrbdouxnpzi/Screenshot-2017-10-12%201%20of%201%20uploaded%20-%20YouTube.png)](http://www.youtube.com/watch?v=MtAFBDPzhx4 "UAFPrediction")
 
 ## Installation
 This tool requires 
