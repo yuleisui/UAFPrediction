@@ -8,13 +8,13 @@ There are numerous C/C++ static bug detectors which aim to locate the existance 
 ## Installation
 This tool requires 
 1. python3 installed and the python modules Scikit-learn and its associated dependencies
-2. Cbmc tool
+2. CBMC tool
 3. Coccinelle tool
-4. Stc tool 
+4. SVF tool 
 5. Clang 3.8
 
 ## Usage
-1. Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and stc is installed on your system. 
+1. Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF is installed on your system. 
     * If you have followed the default instructions on where coccinelle is installed, then it may not be necessary to change the cocci_loc string.
     * If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
     * If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
