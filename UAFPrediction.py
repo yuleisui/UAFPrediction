@@ -7,7 +7,7 @@ from juliet_test_data import target
 
 from coccinelle import *
 from cbmc import *
-from stc import *
+from svf import *
 
 def printArray(report):
     for i in report:
