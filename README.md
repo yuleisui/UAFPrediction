@@ -1,21 +1,23 @@
 # UAFPrediction
-UAFPrediction is a tool which uses the SVM machine learning model to determine the likelihood of a use-after-free bug within  C source files. 
+UAFPrediction is a tool which uses the Support Vector Machine learning model to determine the likelihood of a use-after-free bug within C source files. 
 
 There are numerous C static bug detectors which aim to locate the existance of use-after-free bugs, though not all tools are perfect and there are some limitations when utilising static analysis such as filtering false positives
 
+## Video Demonstration of UAFPrediction
 [![IMAGE ALT TEXT](https://www.dropbox.com/s/shqbdrbdouxnpzi/Screenshot-2017-10-12%201%20of%201%20uploaded%20-%20YouTube.png?raw=1)](https://youtu.be/pA4Sb4w1TRg "UAFPrediction")
 
 ## Installation
 This tool requires 
 1. python3 installed and the python modules Scikit-learn and its associated dependencies
-2. CBMC tool
-3. Coccinelle tool
-4. SVF tool 
-5. Clang 3.8
+2. CBMC tool: [http://www.cprover.org/cbmc/](http://www.cprover.org/cbmc/)
+3. Coccinelle tool [http://coccinelle.lip6.fr/download.php](http://coccinelle.lip6.fr/download.php)
+4. Clang 3.8 [http://releases.llvm.org/download.html](http://releases.llvm.org/download.html)
+5. SVF tool [https://github.com/yuleisui/SVF](https://github.com/yuleisui/SVF) 
 
 ## Usage
 1. Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF is installed on your system. 
-    * If you have followed the default instructions on where coccinelle is installed, then it may not be necessary to change the cocci_loc string.
+    * If you have installed Coccinelle using a package manager, then the command to invoke will be "spatch".
+[![IMAGE_ALT_TEXT](https://www.dropbox.com/s/eyqrrbpuqbx1f0n/coccinelle.png?raw=1)
     * If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
     * If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
     * It may be required to change the stc_loc string, as the binary file may be in a different location.
