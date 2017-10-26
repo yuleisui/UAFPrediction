@@ -16,12 +16,12 @@ This tool requires
 
 ## Usage
 1. Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF is installed on your system. 
-    * If you have installed Coccinelle using a package manager, then the command to invoke will be "spatch".
+    a. If you have installed Coccinelle using a package manager, then the command to invoke will be "spatch".
 ![alt text](https://www.dropbox.com/s/eyqrrbpuqbx1f0n/coccinelle.png?raw=1 "Coccinelle Setup")
-    * If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
+    b. If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
 ![alt text](https://www.dropbox.com/s/0nr4f8zj3yrsso5/cbmc.png?raw=1 "CBMC setup")
-    * If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
-    * It may be required to change the stc_loc string, as the binary file may be in a different location.
+    c. If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
+    d. It may be required to change the stc_loc string, as the binary file may be in a different location.
 ![alt text](https://www.dropbox.com/s/kepenluprnwayvk/svf.png?raw=1 "SVF setup")
 2. Invoke the UAFPrediction.py program using python3 from the base folder of where C source files are located.
     * E.g. python3 /path/to/UAFPrediction.py file1.c file2.c …
