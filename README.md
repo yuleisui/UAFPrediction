@@ -16,14 +16,19 @@ This tool requires
 
 ## Usage
 ### Setting up UAFPrediction
-Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF is installed on your system. 
-  1. If you have installed Coccinelle using a package manager, then the command to invoke will be "spatch".
+Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF is installed on your system.
+#### Modifying coccinelle.py
+  1. On line 6, modify `cocci_loc` to where Coccinelle is invoked on your system. If you have install Coccinelle using a package manager, the default invocation is `spatch`.
+  2. On line 7, modify `uaf_cocci_loc` to where the uaf.cocci file is located on your system. The uaf.cocci file is apart of the git repository. 
    ![alt text](https://www.dropbox.com/s/eyqrrbpuqbx1f0n/coccinelle.png?raw=1 "Coccinelle Setup")
-  2. If you have followed the default instructions on where stc is installed, then it may not be necessary to change the cbmc_loc string.
+#### Modifying cbmc.py
+  2. On line 6, modify `cbmc_loc` to where CBMC is invoked on your system. If you have installed CBMC using a package manager, the default invocation is `cbmc`.
    ![alt text](https://www.dropbox.com/s/0nr4f8zj3yrsso5/cbmc.png?raw=1 "CBMC setup")
-  3. If you have followed the default instructions on where clang is installed, then it may not be necessary to change clang_loc string.
-  4. It may be required to change the stc_loc string, as the binary file may be in a different location.
+#### Modifying svf.py
+  3. On line 7, modify `clang_loc` to where the LLVM Clang 3.8 compiler is invoked on your system.
+  4. On line 9, modify `stc_loc` to where the SVF binary is located on your system.
    ![alt text](https://www.dropbox.com/s/kepenluprnwayvk/svf.png?raw=1 "SVF setup")
+### Using UAFPrediction.py
 2. Invoke the UAFPrediction.py program using python3 from the base folder of where C source files are located.
     * E.g. python3 /path/to/UAFPrediction.py file1.c file2.c …
 ![alt text](https://www.dropbox.com/s/nz32fv6v0bsaegu/invoke.png?raw=1 "invoking UAFPrediction")
