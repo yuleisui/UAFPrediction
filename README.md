@@ -33,7 +33,7 @@ Modify coccinelle.py, cbmc.py and stc.py to show where coccinelle, cbmc and SVF 
     * E.g. python3 /path/to/UAFPrediction.py file1.c file2.c …
 ![alt text](https://www.dropbox.com/s/nz32fv6v0bsaegu/invoke.png?raw=1 "invoking UAFPrediction")
 3. After execution the tool will report if a Use-After-Free bug has been predicted. If a bug has been predicted, then the output of the tools will be report. Otherwise the message “No Use-After-Free bugs have been predicted” message will appear.
-![!alt text](https://www.dropbox.com/s/h1qh1nazf4024c3/uafPred.png?dl=0 "reporting bugs")
+![alt text](https://www.dropbox.com/s/h1qh1nazf4024c3/uafPred.png?dl=0 "reporting bugs")
 
 ## Test folder
 Under the test folder, there are some examples to showcase the program in action.
